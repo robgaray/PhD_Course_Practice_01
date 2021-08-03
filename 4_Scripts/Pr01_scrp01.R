@@ -46,7 +46,7 @@ View(dataset)
 ### 3. Graficación inicial
 ##################
 # Seleccionar un día de datos
-subset<-dataset[dataset$Month==1,]
+subset<-dataset[dataset$Day_Year==1,]
 
 # Graficar carga térmica vs hora del día
 plot(subset$Hour_Day,subset$Power.kW.)
@@ -67,12 +67,31 @@ plot(subset$Temperature,subset$Power.kW.)
 # Mejorando algo el gráfico (leyendas y escalas)
 plot(subset$Temperature,subset$Power.kW.,
      xlab="temperatura [ºC]", ylab="potencia [kW]",
-     xlim= c(-20,30), ylim= c(0,75))
-
+     xlim= c(-5,5), ylim= c(0,50))
 
 
 ##################
 ### 4. Sumario de señales
 ##################
-
+# La función sumary() da información sobre los estadísticos de los valores numéricos
+# Si los valores no son numéricos, te indica el tipo de clase
+# NOTA. Que una variable tenga aperéntemente números, no significa que R los entienda como número
 summary(dataset)
+summary(dataset$Power.kW.)
+summary(dataset$Week_Day)
+
+# las funciones head() y tail() dan los valores iniciales y finales de un objeto
+head(dataset)
+head(dataset$Wind.speed)
+tail(dataset)
+tail(dataset$Wind.speed)
+
+# las funciones min(), max() y mean() dan los valores mínimos, máximos y promedio de un objeto
+min(dataset$Power.kW.)
+max(dataset$Power.kW.)
+mean(dataset$Power.kW.)
+# con dataframes completos y valores no numéricos dan errores y/o valores anómalos
+min(dataset)            #Error
+min(dataset$Week_Day)   #Aparéntemente valor erróneo
+mean(dataset$Week_Day)  #Error
+
