@@ -95,3 +95,8 @@ min(dataset)            #Error
 min(dataset$Week_Day)   #Aparéntemente valor erróneo
 mean(dataset$Week_Day)  #Error
 
+# Las funciones dim() y length() dan las dimensiones (2D) y longitudes (1D) de objetos
+dim(dataset)
+length(dataset$Power.kW.)
+length(dataset)
+
