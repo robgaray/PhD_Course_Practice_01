@@ -99,7 +99,7 @@
 # Bloque 3
 # Graficar
 *(Práctica, 60')*
-## [Script 4]
+## [Script 5]
 - Series temporales (carga térmica vs tiempo)
   - Plotear 1 mes
   - Plotear 1 día
@@ -128,7 +128,7 @@
   - 3 gráficos en vertical
   - Carga térmica, Temperatura, Radiación solar
   - Graficar semana 15
-## [Script 4. Resuelto. 2]
+## [Script 5. Resuelto. 2]
 
 - Gráfico XY
   - Carga térmica vs Temperatura
@@ -139,14 +139,14 @@
 (A realizar por los alumnos)
   - Carga térmica vs Temperatura
   - Color distinto para cada mes
-## [Script 4. Resuelto. 3]
+## [Script 5. Resuelto. 3]
 
 - Boxplot
   - Carga térmica para cada mes
 
 (a realizar por los alumnos)
   - Carga térmica para cada día de la semana en ENERO
-## [Script 4. Resuelto. 4]
+## [Script 5. Resuelto. 4]
 
 - Heat Map
   - X: Hora de la semana
@@ -159,7 +159,7 @@
 - Gráfico XY a archivo
   - Carga térmica vs Temperatura
   - Color distinto para cada mes
-## [Script 4. Resuelto. 5]
+## [Script 5. Resuelto. 5]
 
 *(Hasta aquí, 2h45')*
 *(Descanso, 15')*
@@ -167,19 +167,19 @@
 # Bloque 4
 # Marcas de tiempo
 *(Práctica, 15')*
-## [Script 5]
+## [Script 6]
 - Indexación como POSIXCT
 - Sacar valores típicos día del año, día de la semana,...
 
 (a realizar por los alumnos)
 - Sacar la semana 45
 - Gráfico XY Carga vs Temperatura a archivo
-## [Script 5. Resuelto]
+## [Script 6. Resuelto]
 
 
 # Flujo del programa
 *(Práctica, 15')*
-## [Script 6]
+## [Script 7]
 - Indexación
 - IF
 - FOR
@@ -187,18 +187,18 @@
 
 (a realizar por los alumnos)
 - Sacar gráfico Q vs T para todos los meses del año
-## [Script 6. Resuelto]
+## [Script 7. Resuelto]
 
 # Subseteado (2ª parte)
 *(Práctica, 15')*
-## [Script 7]
+## [Script 8]
 - Subseteado por índices
 - Subseteado por condiciones
 
 (a realizar por los alumnos)
 - Sacar data frame con Mes=7
 - Sacar data frame con Mes=3 y carga >XXXkW
-## [Script 7. Resuelto]
+## [Script 8. Resuelto]
 
 # Funciones
 *(Práctica, 15')*
