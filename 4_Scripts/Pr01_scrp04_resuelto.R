@@ -44,9 +44,22 @@ wd<-getwd()
 install.packages("readr")
 library(readr)
 
+# lubridate
+install.packages("lubridate")
+library(lubridate)
+
 ##################
 ### Referencia
 ##################
+
+# Cambio de formatos de datos
+# En general, con las funciones "as.XXX()"
+# ¡OJO, verificar que funciona bien!
+# Da problemas con los valores categóricos. aparéntemente son texto, pero están indexados
+
+# Calcular máximos
+# max calcula el valor máximo (1 número) de un conjunto de datos
+# pmax calcula el valor máximo de 2 vectores por pares. Retorna un vector.
 
 ##################
 ### 2. Lectura desde archivos CSV
@@ -132,12 +145,78 @@ summary(is.na(df_formato3))
 ### 3.2 Inspección de tipos de dato
 ### 3.3 Corrección de tipos de dato
 ##################
+# 3.1 Importación de datos con errores de formato
+# Archivo de datos
+file<-"/2_Data/Data_Pr01.csv"
+# Ruta completa
+ruta<-paste(wd,file, sep="")
+# Lectura de un archivo csv
+dataset <- read.csv(ruta, sep=";", dec=",")
+
+# 3.2 Inspección de tipos de dato
+# En general
+summary(dataset)
+head(dataset)
+
+# trabajemos sobre la variable dataset$Power.kW.
+summary(dataset$Power.kW.)
+head(dataset$Power.kW.)
+
+# 3.3 Corrección de tipos de dato
+# dataset$Power.kW.
+# A realizar por los alumnos
+summary(as.numeric(dataset$Power.kW.))
+head(as.numeric(dataset$Power.kW.))
+
+dataset$Power.kW.<-as.numeric(dataset$Power.kW.)
+summary(dataset)
+
+# todas las variables numéricas [, 7:11]
+# A realizar por los alumnos
+names(dataset)
+for (i in 7:11)
+{
+  dataset[,i]<-as.numeric(dataset[,i])
+}
+
+summary(dataset)
+##################
 
 ##################
 ### 4. Marcas de tiempo
 ### 4.1 Revisión de marcas de tiempo en el archivo
 ### 4.2 Generación de variable POSIX
-### 4.3 Generación de varaiables auxiliares
+### 4.3 Operaciónes con fechas
+##################
+# 4.1 Revisión de marcas de tiempo en el archivo
+summary(dataset)
+plot(dataset$Year, type="l")
+plot(dataset$Month, type="l")
+plot(dataset$Day_Month, type="l")
+plot(dataset$Hour_Day, type="l")
+
+# 4.2 Generación de variable POSIX
+# Generar una variable única con "forma" de marca de tiempo
+dataset$time<-paste(dataset$Year, "-", dataset$Month, "-", dataset$Day_Month, " ", dataset$Hour_Day, ":00:00", sep="")
+
+# de momento es sólo una variable de texto
+summary (dataset$time)
+
+# Convertir en marca de tiempo unificada
+dataset$time<-as.POSIXct(dataset$time, format="%Y-%m-%d %H:%M:%OS")
+
+summary (dataset$time)
+plot(dataset$time)
+dataset$time[3]-dataset$time[2]
+
+# 4.3 Operaciónes con fechas
+hour(dataset$time[1:24]) # Hour of the day
+year(dataset$time[1:24])
+month(dataset$time[1:24])
+yday(dataset$time[1:48]) # day of the year
+
+as.numeric(strftime(dataset$time[500],format="%W"))  # Week of year
+wday(dataset$time[150]) # day of the week
 ##################
 
 ##################
@@ -145,14 +224,75 @@ summary(is.na(df_formato3))
 ### 5.1 Agregación de datos por día
 ### 5.2 Cálculo de GD
 ##################
+# 5.1 Agregación de datos por día
+# Generar variable índice (fecha sin horas)
+# A realizar por los alumnos
+# aprovechar el ejemplo de dataset$time más arriba
+dataset$date<-paste(dataset$Year, "-", dataset$Month, "-", dataset$Day_Month, sep="")
+dataset$date<-as.POSIXct(dataset$date, format="%Y-%m-%d")
+
+# Agregar datos por variable índice
+dataset.aggr<-aggregate(dataset, by=list(dataset$date), FUN=mean)
+
+# Quedarnos sólo con las variables de interés: date, Temperature, Power.kW. 
+TF<-names(dataset.aggr) %in% c("date","Temperature", "Power.kW.")
+dataset.aggr<-dataset.aggr[,TF]
+
+# Reordenar orden de columnas dataframe
+dataset.aggr<-dataset.aggr[,c(3,2,1)]
+
+# 5.2 Cálculo de GD
+# HDD = valor positivo de 15-temperatura ambiental promedio diaria
+dataset.aggr$difDD<-15-dataset.aggr$Temperature
+
+plot(dataset.aggr$date, dataset.aggr$difDD, type="l")
+abline(h = 0, col="red")
+
+#Convertir en 0
+# A realizar por los alumnos
+max (dataset.aggr$difDD,0)
+dataset.aggr$HDD15<-pmax(dataset.aggr$difDD, 0)
+
+plot (dataset.aggr$date, dataset.aggr$difDD, type="l")
+abline(h = 0, col="red")
+lines(dataset.aggr$date, dataset.aggr$HDD15, col="blue")
+
+# Quedarnos sólo con las variables de interés: date, Temperature, Power.kW. , HDD15
+TF<-names(dataset.aggr) %in% c("date","Temperature", "Power.kW.", "HDD15")
+dataset.aggr<-dataset.aggr[,TF]
 
 ##################
 ### 6. Escritura de archivos CSV
 ### 6.1 Escritura a archivo CSV
 ### 6.2 Inspección del archivo con editor de texto
+### 6.3 Correcciones
 ##################
+# 6.1 Escritura a archivo CSV
+write.csv(dataset.aggr, file="dataset.aggr.csv")
+
+# 6.2 Inspección del archivo con editor de texto
+# A realizar por los alumnos
+# Dónde se ha guardado??
+getwd()
+
+# Formato, separadores y decimales
+# Formato, marcas de fila
+
+# 6.3 Correcciones
+# A realizar por los alumnos. Consultar el archivo de ayuda de write.csv()
+# Quitar marca de fila
+write.csv(dataset.aggr, file="dataset.aggr.csv", row.names=FALSE)
 
 ##################
 ### 7. Archivos RDS
 ##################
+# Los archivos RDS son archivos binarios que contienen un objeto de R
+# Escribir RDS a archivo
+write_rds(dataset.aggr, file="dataset.aggr.RDS")
 
+# Abrir RDS con editor de texto
+
+# Importar a R
+dataset.aggr_IMPORT <- readRDS("C:/GIT/PhD_Course/PhD_Course_Practice_01_R/dataset.aggr.RDS")
+
+# A responder por los alumnos. ¿Ventajas e inconvenientes RDS vs CSV?
