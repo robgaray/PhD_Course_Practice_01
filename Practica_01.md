@@ -113,25 +113,10 @@
   - Añadir título
   - Añadir leyenda
 
-(A realizar por los alumnos)
-  -  Series temporales (carga térmica vs tiempo)
-  -  semanas 1, 15, 26, 38 en colores
-  -  Ejes, leyendas,...
- ## [Script 4. Resuelto. 1]
-
 - Dividir gráfico
   - 3 gráficos en horizontal
   - Carga térmica, Temperatura, Radiación solar
   - Graficar 1 día
-
-(A realizar por los alumnos)
-  - 3 gráficos en vertical
-  - Carga térmica, Temperatura, Radiación solar
-  - Graficar semana 15
-## [Script 5. Resuelto. 2]
-
-- Gráfico XY
-  - Carga térmica vs Temperatura
 
 - Gráfico XY
   - Carga térmica vs HDD
@@ -139,27 +124,15 @@
 (A realizar por los alumnos)
   - Carga térmica vs Temperatura
   - Color distinto para cada mes
-## [Script 5. Resuelto. 3]
 
 - Boxplot
   - Carga térmica para cada mes
 
-(a realizar por los alumnos)
-  - Carga térmica para cada día de la semana en ENERO
-## [Script 5. Resuelto. 4]
-
-- Heat Map
-  - X: Hora de la semana
-  - Y: Semana del año
-  - Color: Carga
+(A realizar por los alumnos)
+  - Boxplot de carga térmica para cada día de la semana en ENERO
 
 - Gráfico a archivo
 
-(a realizar por los alumnos)
-- Gráfico XY a archivo
-  - Carga térmica vs Temperatura
-  - Color distinto para cada mes
-## [Script 5. Resuelto. 5]
 
 *(Hasta aquí, 2h45')*
 *(Descanso, 15')*
