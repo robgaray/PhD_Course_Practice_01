@@ -4,8 +4,4 @@
 ## Notas
 
 # Pendientes
-- Presentaciones
 - Datos de Mikel para la cabecera
-
-## Generar versión alumno/profesor
-- Script 6
