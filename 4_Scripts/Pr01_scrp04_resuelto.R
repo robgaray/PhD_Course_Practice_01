@@ -12,15 +12,12 @@
 ###
 ### 0. Gestión de directorios
 ### 1. Instalación y activación de librerías, carga de funciones
+### 2. Apertura de 1 archivo CSV
 ### 
 ### referencia
 ###
-### 2. Lectura desde archivos CSV
-### 3. Corrección de archivos
-### 4. Marcas de tiempo
-### 5. Cálculos
-### 6. Escritura de archivos CSV
-### 7. Archivos RDS
+### 3. Sumario de carga de un día de la semana
+### 4. Sumario de carga de todos los días de la semana
 ###
 ##################
 
@@ -39,260 +36,208 @@ wd<-getwd()
 ### 1. Instalación y activación de librerías, carga de funciones
 ##################
 
-# Instalación y activación de librerías
-# readr
-install.packages("readr")
-library(readr)
+# Carga de funciones
+# Archivo de funciones
+file<-"/4_Scripts/Pr01_fnct03.R"
+# Ruta completa
+ruta<-paste(wd,file, sep="")
+# Carga de funciones
+source(ruta)
 
-# lubridate
-install.packages("lubridate")
-library(lubridate)
+##################
+### 2. Apertura de 1 archivo CSV
+##################
+
+# Archivo de datos
+file<-"/2_Data/Data_Pr01.csv"
+
+# Ruta completa
+ruta<-paste(wd,file, sep="")
+
+# Lectura de un archivo csv
+dataset <- read.csv(ruta, sep=";")
+# View(dataset)
 
 ##################
 ### Referencia
 ##################
 
-# Cambio de formatos de datos
-# En general, con las funciones "as.XXX()"
-# ¡OJO, verificar que funciona bien!
-# Da problemas con los valores categóricos. aparéntemente son texto, pero están indexados
+# Seleccionar una variable concreta de un dataframe: "$"
+# sintaxis: DATAFRAME$VARIABLE
+# ejemplo: dataset$Year
+dataset$Year
 
-# Calcular máximos
-# max calcula el valor máximo (1 número) de un conjunto de datos
-# pmax calcula el valor máximo de 2 vectores por pares. Retorna un vector.
+# Seleccionar una posición concreta de un dada frame por número: [,]
+# sintaxis: DATAFRAME[NUMERO_FILA,NUMERO_COLUMNA]
+# ejemplo: dataset[3,5]
+dataset[3,5]
+# si se quiere toda la fila/columna, se puede dejar el valor vacío
+# ejemplo: dataset[,5]
+dataset[,5]
+
+# guardar información en un objeto nuevo "<-"
+# sintaxis: VAR_NUEVA <- VAR_VIEJA
+# ejemplo: var<-dataset$Year
+var<-dataset$Year
+rm(var) # Eliminamos la variable para evitar problemas
+
+# generar un vector inicializado a X
+# sintaxis: NOMBRE_VECTOR<-rep (X,NUM_DIMENSIONES)
+# ejemplo: vec<-rep (0,12)
+vec<-rep (0,12)
+rm(vec) # Eliminamos la variable para evitar problemas
+
+# obtener valores únicos de una variable
+# sintaxis: unique(VARIABLE)
+# ejemplo: unique(dataset$Week_Day)
+unique(dataset$Week_Day)
 
 ##################
-### 2. Lectura desde archivos CSV
-### 2.1 Apertura de archivos en editor de texto
-### 2.2 Importación de archivos (visual)
-### 2.3 Importación de archivos (código)
-### 2.4 Inspección de dataframe
+### 3. Sumario de carga de un día de la semana
 ##################
+# Coger un mes cualquiera (1:12)
+month<-2
+# Extraer los datos de un mes concreto
+subset_month<-dataset[dataset$Month==month,]
+# Seleccionar un día cualquiera 
+day<- unique(dataset$Week_Day)[3]
+# Extraer los datos de un día de la semana concreto
+subset<-subset_month[subset_month$Week_Day==day,]
 
-# 2.1 Apertura de archivos en editor de texto
-# En el cuadro inferior-derecha
-# Seleccionar la pestaña "Files".
-#    Es un pequeño explorador de archivos
-#    Debería estar inicializado en la ruta de la práctica
-# Acceder al directorio 2_Data
-# Clickar sobre "Data_Pr01.csv"
-# Seleccionar "view file"
-#    Se abrirá el archivo en la pestaña superior-izquierda
-# Revisar tamaño del archivo
-#    Debería tener 7974 filas (+1 vacía)
-#    Si una fila del archivo es demasiado larga para mostrarse en la ventana
-#       Se continúa en la siguiente fila, pero sólo se numera la primera
-# Revisar el formato
-#    Primera fila: cabecera
-#    Resto de filas: datos
-#    Separación por columnas: ";"
-#    Decimales: "."
+# Sacar sumario
+summary<-summary(subset$Power.kW.)
+min<-summary[1]
+min<-as.numeric(min)
+mean<-as.numeric(summary[4])
+max<-as.numeric(summary[6])
 
-# 2.2 Importación de archivos (visual)
-# Hay (al menos) dos formas
-#     File>...
-#     Con el explorador de archivos + readr (se explica al final)
+##################
+### 4. Sumario de carga de todos los días de la semana
+##################
+# EJERCICIO A REALIZAR POR LOS ALUMNOS
 #
-# File>Import Dataset>From Text (base)
-# Seleccionar el archivo ".../2_Data/Data_Pr01.csv" (idem que en el punto anterior)
-# Se abre una ventana
-# Elegir el formato de importación
-#    ";" -> Semicolon
-#    "." -> Period
-# Import
-# Observar lo que se ha escrito en la consola
-#    Debería ser algo como esto:
-#    Data_Pr01 <- read.csv("C:/.../PhD_Course_Practice_01_R/2_Data/Data_Pr01.csv", sep=";")
-#    View(Data_Pr01)
-# Observar el data frame importado
-#    Se debería haber abierto en la ventana superior-izquierda. Como una pestaña adicional
-#    En caso contrario, Seleccionar en la ventana superior-derecha, peastaña "Environment"
+# Se ha generado una función que calcula un sumario de la carga térmica para un dia de la semana concreto.
+# Con la siguiente forma:
+#     sumario_carga_dia(DATOS,DIA_SEMANA)
+#     La salida es un vector de 3 posiciones. MIN, MEAN y MAX
 #
-# Alternativamente, se puede importar un archivo CSV mediente readr
-#    File>Import Dataset>From Text (readr)
-#    también desde el explorador de archivos, clickando sobre el archivo y luego "Import Dataset"
-# Es ligeramente más avanzado. Permite definir el tipo de datos en cada columna
+# Realizar los siguientes ejercicios
+#
+# 4.1 Sacar los valores minimo, promedio y máximo diarios para todos los días de la semana de un mes
+# 4.1.1 Crear e inicializar a 0 los valores de salida
+# 4.1.2 Recorrer (de forma automática) todos los días de la semana y guardar los valores en 3 vectores separados
+# 4.1.3 Plotear los valores
+#
+# 4.2 Comparar los valores promedio correspondientes a todos los meses 
+# 4.2.1 Crear e inicializar a 0 la matriz de salida
+# 4.2.2 Recorrer (de forma automática) los meses seleccionaros para cada díade la semana y guardar los valores en 1 matriz
+# 4.2.3 Convertir matriz a data frame
+# 4.2.4 Plotear los valores
 
-# 2.3 Importación de archivos (código)
-# A realizar por los alumnos
-# 
-# Aprovechar el código generado en el punto 2.2
-#    Data_Pr01 <- read.csv("C:/.../PhD_Course_Practice_01_R/2_Data/Data_Pr01.csv", sep=";")
-# Importar el archivo Data_Pr01_FORMAT2.csv
-# Verificar el formato del archivo (puede tener alguna sorpresa)
-# El dataframe de salida debería llamarse "df_formato2"
-df_formato2 <- read.csv("C:/GIT/PhD_Course/PhD_Course_Practice_01_R/2_Data/Data_Pr01_FORMAT2.csv")
+# 4.1 Sacar los valores minimo, promedio y máximo diarios para todos los días de la semana de un mes
+# 4.1.1 Crear e inicializar a 0 los valores de salida
+vect_MIN  <- rep(0, 7)
+vect_MEAN <- rep(0, 7)
+vect_MAX  <- rep(0, 7)
 
-# Importar el archivo Data_Pr01_FORMAT3.csv
-# Verificar el formato del archivo (puede tener alguna sorpresa)
-# El dataframe de salida debería llamarse "df_formato3"
-# NOTA los decimales se establecen con: dec="XXX"
-df_formato3 <- read.csv("C:/GIT/PhD_Course/PhD_Course_Practice_01_R/2_Data/Data_Pr01_FORMAT3.csv", sep=" ",dec = ",")
+# 4.1.2 Recorrer (de forma auomática) todos los meses del año y guardar los valores en 3 vectores separados
+month <-3
+weekdays<- c("MON","TUE","WED","THU","FRI","SAT","SUN")
 
-# 2.4 Inspección de dataframe
-# (df_formato3)
-View(df_formato3)
-summary(df_formato3)
-head(df_formato3)
-tail(df_formato3)
-dim(df_formato3)
-is.na(df_formato3)
-summary(is.na(df_formato3))
-
-##################
-### 3. Corrección de archivos
-### 3.1 Importación de datos con errores de formato
-### 3.2 Inspección de tipos de dato
-### 3.3 Corrección de tipos de dato
-##################
-# 3.1 Importación de datos con errores de formato
-# Archivo de datos
-file<-"/2_Data/Data_Pr01.csv"
-# Ruta completa
-ruta<-paste(wd,file, sep="")
-# Lectura de un archivo csv
-dataset <- read.csv(ruta, sep=";", dec=",")
-
-# 3.2 Inspección de tipos de dato
-# En general
-summary(dataset)
-head(dataset)
-
-# trabajemos sobre la variable dataset$Power.kW.
-summary(dataset$Power.kW.)
-head(dataset$Power.kW.)
-
-# 3.3 Corrección de tipos de dato
-# dataset$Power.kW.
-# A realizar por los alumnos
-summary(as.numeric(dataset$Power.kW.))
-head(as.numeric(dataset$Power.kW.))
-
-dataset$Power.kW.<-as.numeric(dataset$Power.kW.)
-summary(dataset)
-
-# todas las variables numéricas [, 7:11]
-# A realizar por los alumnos
-names(dataset)
-for (i in 7:11)
+subset_month<-dataset[dataset$Month==month,]
+for (i in 1:7)
 {
-  dataset[,i]<-as.numeric(dataset[,i])
+  salida<-sumario_carga_dia(subset_month,weekdays[i])
+  vect_MIN[i]  <- salida[1]
+  vect_MEAN[i] <- salida[2]
+  vect_MAX[i]  <- salida[3]
 }
 
-summary(dataset)
-##################
+# 4.1.3 Plotear los valores
+plot(vect_MAX, col="red",
+     ylim=c(0,max(vect_MAX)),
+     xlab="Dia", ylab="Carga térmica [kW]",
+     main="Sumario de carga semanal",
+     xaxt="n")
+axis(1,at=1:7,labels=weekdays)
+points (vect_MEAN, col="green")
+points (vect_MIN, col="blue")
+
+# 4.2 Comparar los valores promedio correspondientes a todos los meses 
+# 4.2.1 Crear e inicializar a 0 la matriz de salida
+# 1 columna para cada mes
+# i fila para cada día de la semana
+mat_MEAN<-matrix(0,nrow = 7, ncol =12)
+
+# 4.2.2 Recorrer (de forma automática) los meses seleccionaros para cada díade la semana y guardar los valores en 1 matriz
+months<-1:12
+weekdays<- c("MON","TUE","WED","THU","FRI","SAT","SUN")
+
+
+for (i in months)
+{
+  subset_month<-dataset[dataset$Month==i,]
+  for (j in 1:length(weekdays))
+  {
+    salida<-sumario_carga_dia(subset_month,weekdays[j])
+    mat_MEAN[j,i] <- salida[2]
+  }  
+}
+
+# 4.2.3 Convertir matriz a data frame
+df_MEAN<-as.data.frame(mat_MEAN)
+names(df_MEAN)<-c("JAN","FEB","MAR","APR","MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC")
+
+# 4.2.4 Plotear los valores
+# coloreado automático
+colores<-rainbow(12)
+
+# gráfico vacío
+plot(df_MEAN$JAN,type="n",
+     ylim=c(0,max(df_MEAN)),
+     xlab="Dia", ylab="Carga térmica [kW]",
+     main="Sumario de carga semanal, por mes",
+     xaxt="n")
+axis(1,at=1:7,labels=weekdays)
+
+# series de datos
+for (i in months)
+  {
+    points (df_MEAN[,i], col=colores[i])
+    lines (df_MEAN[,i], col=colores[i])
+  }
+
+# leyenda
+legend("right",legend=names(df_MEAN),
+       col=colores, lty=1, cex=0.8)
+
+
 
 ##################
-### 4. Marcas de tiempo
-### 4.1 Revisión de marcas de tiempo en el archivo
-### 4.2 Generación de variable POSIX
-### 4.3 Operaciónes con fechas
+# Un poco más limpio
 ##################
-# 4.1 Revisión de marcas de tiempo en el archivo
-summary(dataset)
-plot(dataset$Year, type="l")
-plot(dataset$Month, type="l")
-plot(dataset$Day_Month, type="l")
-plot(dataset$Hour_Day, type="l")
+# (líneas con cambios marcadas com #$#)
 
-# 4.2 Generación de variable POSIX
-# Generar una variable única con "forma" de marca de tiempo
-dataset$time<-paste(dataset$Year, "-", dataset$Month, "-", dataset$Day_Month, " ", dataset$Hour_Day, ":00:00", sep="")
+colores<-rainbow(12)
+par(mar=c(5.1, 4.1, 4.1, 7))                             #$#
 
-# de momento es sólo una variable de texto
-summary (dataset$time)
+# gráfico vacío
+plot(df_MEAN$JAN,type="n",
+     ylim=c(0,max(df_MEAN)),
+     xlab="Dia", ylab="Carga térmica [kW]",
+     main="Sumario de carga semanal, por mes",
+     xaxt="n")
+axis(1,at=1:7,labels=weekdays)
 
-# Convertir en marca de tiempo unificada
-dataset$time<-as.POSIXct(dataset$time, format="%Y-%m-%d %H:%M:%OS")
+# series de datos
+for (i in months)
+{
+  points (df_MEAN[,i], col=colores[i])
+  lines (df_MEAN[,i], col=colores[i])
+}
 
-summary (dataset$time)
-plot(dataset$time)
-dataset$time[3]-dataset$time[2]
-
-# 4.3 Operaciónes con fechas
-hour(dataset$time[1:24]) # Hour of the day
-year(dataset$time[1:24])
-month(dataset$time[1:24])
-yday(dataset$time[1:48]) # day of the year
-
-as.numeric(strftime(dataset$time[500],format="%W"))  # Week of year
-wday(dataset$time[150]) # day of the week
-##################
-
-##################
-### 5. Cálculos
-### 5.1 Agregación de datos por día
-### 5.2 Cálculo de GD
-##################
-# 5.1 Agregación de datos por día
-# Generar variable índice (fecha sin horas)
-# A realizar por los alumnos
-# aprovechar el ejemplo de dataset$time más arriba
-dataset$date<-paste(dataset$Year, "-", dataset$Month, "-", dataset$Day_Month, sep="")
-dataset$date<-as.POSIXct(dataset$date, format="%Y-%m-%d")
-
-# Agregar datos por variable índice
-dataset.aggr<-aggregate(dataset, by=list(dataset$date), FUN=mean)
-
-# Quedarnos sólo con las variables de interés: date, Temperature, Power.kW. 
-TF<-names(dataset.aggr) %in% c("date","Temperature", "Power.kW.")
-dataset.aggr<-dataset.aggr[,TF]
-
-# Reordenar orden de columnas dataframe
-dataset.aggr<-dataset.aggr[,c(3,2,1)]
-
-# 5.2 Cálculo de GD
-# HDD = valor positivo de 15-temperatura ambiental promedio diaria
-dataset.aggr$difDD<-15-dataset.aggr$Temperature
-
-plot(dataset.aggr$date, dataset.aggr$difDD, type="l")
-abline(h = 0, col="red")
-
-#Convertir en 0
-# A realizar por los alumnos
-max (dataset.aggr$difDD,0)
-dataset.aggr$HDD15<-pmax(dataset.aggr$difDD, 0)
-
-plot (dataset.aggr$date, dataset.aggr$difDD, type="l")
-abline(h = 0, col="red")
-lines(dataset.aggr$date, dataset.aggr$HDD15, col="blue")
-
-# Quedarnos sólo con las variables de interés: date, Temperature, Power.kW. , HDD15
-TF<-names(dataset.aggr) %in% c("date","Temperature", "Power.kW.", "HDD15")
-dataset.aggr<-dataset.aggr[,TF]
-
-##################
-### 6. Escritura de archivos CSV
-### 6.1 Escritura a archivo CSV
-### 6.2 Inspección del archivo con editor de texto
-### 6.3 Correcciones
-##################
-# 6.1 Escritura a archivo CSV
-write.csv(dataset.aggr, file="dataset.aggr.csv")
-
-# 6.2 Inspección del archivo con editor de texto
-# A realizar por los alumnos
-# Dónde se ha guardado??
-getwd()
-
-# Formato, separadores y decimales
-# Formato, marcas de fila
-
-# 6.3 Correcciones
-# A realizar por los alumnos. Consultar el archivo de ayuda de write.csv()
-# Quitar marca de fila
-write.csv(dataset.aggr, file="dataset.aggr.csv", row.names=FALSE)
-
-##################
-### 7. Archivos RDS
-##################
-# Los archivos RDS son archivos binarios que contienen un objeto de R
-# Escribir RDS a archivo
-write_rds(dataset.aggr, file="dataset.aggr.RDS")
-
-# Abrir RDS con editor de texto
-
-# Importar a R
-dataset.aggr_IMPORT <- readRDS("C:/GIT/PhD_Course/PhD_Course_Practice_01_R/dataset.aggr.RDS")
-
-# A responder por los alumnos. ¿Ventajas e inconvenientes RDS vs CSV?
+# leyenda
+legend("topright",legend=names(df_MEAN),
+       inset = c(-0.3, -0),                              #$#
+       xpd = TRUE,                                       #$#
+       col=colores, lty=1, cex=0.8)

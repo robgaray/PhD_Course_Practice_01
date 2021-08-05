@@ -8,7 +8,7 @@
 
 ##################
 ### Práctica 1
-### Script 5
+### Script 6
 ###
 ### 0. Gestión de directorios
 ### 1. Instalación y activación de librerías, carga de funciones
@@ -38,7 +38,6 @@ wd<-getwd()
 ##################
 
 # lubridate
-install.packages("lubridate")
 library(lubridate)
 
 # Carga de funciones

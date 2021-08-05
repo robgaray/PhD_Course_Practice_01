@@ -17,8 +17,17 @@
 ##################
 
 ##################
-### 1. Instalación y activación de librerías
+### 1. Instalación y activación de librerías, carga de funciones
 ##################
+
+# Instalación y activación de librerías
+# readr
+install.packages("readr")
+library(readr)
+
+# lubridate
+install.packages("lubridate")
+library(lubridate)
 
 ##################
 ### 2. Apertura de 1 archivo CSV

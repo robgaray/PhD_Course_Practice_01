@@ -1,9 +1,6 @@
 # Análisis de datos para cargas energéticas en edificios. Contexto, Métodos de análisis, Herramientas y Aplicaciones
 
 # Módulo 1. Práctica (4h)
-
-# Bloque 1
-
 # Contenido de la práctica
 *(Teoria 10')*
 - Qué se va a hacer
@@ -17,9 +14,10 @@
 
 ## [Script 1] 
 - Script de prueba
-  - Abrir CSV
-  - Gráfico de 1 día de datos
-  - Sumario de señales
+	- Instalación y activación de librerías
+	- Apertura de 1 archivo CSV
+	- Graficación inicial
+	- Sumario de señales
 
 # Estructura básica de R Studio
 *(Teoria 15')*
@@ -30,26 +28,24 @@
 
 *(Hasta aquí, 45h)*
 
-# Bloque 2
 # Subseteado
-*(Práctica 10')*
+*(Práctica 30')*
 ## [Script 2]
 *Tomar un dataframe como base y empezar a buscar formas de sacar información. Luego hacer medias y graficarlas.*
-- Sumario de carga de un mes del año
-  - subsetear por numérico
-  - guardar información en un vector
-- Sumario de carga de todos los meses del año
-  - item for que recorre una lista de meses
-  - luego subsetear por numérico
-  - guardar información en una matriz
-  - Convertir matriz a data frame
-- Inspeccionar vector, matriz data frame (A realizar por los alumnos)
-  - Ver cómo salen en la consola
-  - Ver cómo se indexa a cada uno
+
+- Sumario de cargas de un mes
+	- Sacar un subconjunto de datos con el mes elegido
+	- Calcular los valores mínimo, promedio y máximo
+- Sumario de cargas mensual
+	- Crear e inicializar a 0 los valores de salida
+	- Recorrer (de forma automática) todos los meses del año y guardar los valores en 3 vectores separados
+	- Plotear los valores
 ## [Script 2. Resuelto]
 
+*(Hasta aquí, 1h15')*
+
 # Tipos de datos
-*(Teoria 10')*
+*(Teoria 15')*
 - Numéricos
 - Booleanos
 - String
@@ -58,120 +54,58 @@
 - Data Frame
 - Lista
 
-# Subseteado, a resolver por los alumnos
-*(Práctica 10')*
-## [Script 3]
-- Sumario de carga de un día de la semana
-  - subsetear por string
-  - guardar información en un vector
-- Sumario de carga de todos los días de la semana (A realizar por los alumnos)
-  - item for que recorre una lista de meses
-  - luego subsetear por string
-  - guardar información en una matriz
-  - Convertir matriz a data frame
-## [Script 3. Resuelto]
-
-*(Hasta aquí, 1h15')*
+*(Hasta aquí, 1h30')*
 *(Descanso, 15')*
-
-# Leer y escribir archivos
-*(Práctica, 15')*
-## [Script 4]
-- Leer desde CSV
-  - Abrir archivo con editor de texto y verificar formato
-  - Cargar CSV
-  - head/tail
-  - Sumario
-- Verificar y corregir
-  - Decimales
-  - Tipos de datos
-- Calcular
-  - HDD 15ºC
-- Escribir a CSV
-  - Abrir archivo con editor de texto y verificar formato
-- Archivos RDS
-  - Escribir RDS
-  - (Intentar) Abrir archivo con editor de texto y verificar formato
-  - Cargar RDS  
-
-*(Hasta aquí, 1h45')*
-
-# Bloque 3
-# Graficar
-*(Práctica, 60')*
-## [Script 5]
-- Series temporales (carga térmica vs tiempo)
-  - Plotear 1 mes
-  - Plotear 1 día
-  - Añadir todos los días de una semana
-- Colores
-  - Gráfico vacío
-  - Añadir series de 1 día a lo largo de toda la semana, cada una con un color
-- Auxiliares
-  - Añadir leyenda eje X
-  - Añadir leyenda eje Y
-  - Añadir título
-  - Añadir leyenda
-
-- Dividir gráfico
-  - 3 gráficos en horizontal
-  - Carga térmica, Temperatura, Radiación solar
-  - Graficar 1 día
-
-- Gráfico XY
-  - Carga térmica vs HDD
-
-(A realizar por los alumnos)
-  - Carga térmica vs Temperatura
-  - Color distinto para cada mes
-
-- Boxplot
-  - Carga térmica para cada mes
-
-(A realizar por los alumnos)
-  - Boxplot de carga térmica para cada día de la semana en ENERO
-
-- Gráfico a archivo
-
-
-*(Hasta aquí, 2h45')*
-*(Descanso, 15')*
-
-# Bloque 4
-# Marcas de tiempo
-*(Práctica, 15')*
-## [Script 6]
-- Indexación como POSIXCT
-- Sacar valores típicos día del año, día de la semana,...
-
-(a realizar por los alumnos)
-- Sacar la semana 45
-- Gráfico XY Carga vs Temperatura a archivo
-## [Script 6. Resuelto]
-
 
 # Flujo del programa
-*(Práctica, 15')*
-## [Script 7]
-- Indexación
+*(Teoría, 15')*
+## [Script 3]
+- Indexación y acceso a variables
+	- Matrices y vectores
+	- Data frames
+	- Acceso por posición
+	- Subseteado por posición
 - IF
 - FOR
 - WHILE
 
-(a realizar por los alumnos)
-- Sacar gráfico Q vs T para todos los meses del año
-## [Script 7. Resuelto]
+*(Hasta aquí, 2h')*
 
-# Subseteado (2ª parte)
-*(Práctica, 15')*
-## [Script 8]
-- Subseteado por índices
-- Subseteado por condiciones
+# Subseteado II
+*(Práctica 30')*
+## [Script 4]
+- Sacar los valores minimo, promedio y máximo diarios para todos los días de la semana de un mes
+- Comparar los valores promedio correspondientes a todos los meses 
 
-(a realizar por los alumnos)
-- Sacar data frame con Mes=7
-- Sacar data frame con Mes=3 y carga >XXXkW
-## [Script 8. Resuelto]
+
+## [Script 4. Resuelto]
+
+*(Hasta aquí, 2h30')*
+*(Descanso, 15')*
+
+# Leer y escribir archivos
+*(Práctica, 30')*
+## [Script 5]
+- Lectura desde archivos CSV
+- Corrección de archivos
+- Marcas de tiempo
+- Cálculos
+- Escritura de archivos CSV
+- Archivos RDS
+## [Script 5. Resuelto
+*(Hasta aquí, 3h15')*
+
+# Graficar
+*(Práctica, 30')*
+## [Script 6]
+- Gráfico de series temporales(carga térmica vs tiempo)
+- División del area gráfica
+- Gráfico XY
+- Boxplot
+- Gráfico a archivo
+*(Hasta aquí, 3h30')*
 
 # Funciones
-*(Práctica, 15')*
+*(Teoría, 15')*
+
+*(Hasta aquí, 4h')*

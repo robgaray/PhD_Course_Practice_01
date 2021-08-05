@@ -8,7 +8,7 @@
 
 ##################
 ### Práctica 1
-### Script 7
+### Script 3
 ### 
 ### 0. Gestión de directorios
 ### 1. Instalación y activación de librerías, carga de funciones
@@ -37,7 +37,6 @@ wd<-getwd()
 ##################
 
 # lubridate
-install.packages("lubridate")
 library(lubridate)
 
 # Carga de funciones
@@ -118,7 +117,6 @@ tabla[[25]]
 ### 4.1 Definir períodos activación calefacción
 ### Si T<15ºC ACTIVO
 ### Si Y>=15ºC DESACTIVADO
-### Graficar ??
 ##################
 ACT_CALEF<-rep(0,dim(dataset)[1])
 for (i in 1:length(ACT_CALEF))
