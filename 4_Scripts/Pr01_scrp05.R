@@ -77,8 +77,8 @@ dataset<-Date_Marks(dataset)
 ### 3. Gráfico de series temporales(carga térmica vs tiempo)
 ##################
 ### 3.1 Plotear 1 mes
-### 3.2 Plotear 1 día
-### 3.3 Plotear todos los días de una semana
+### 3.2 Plotear 1 semana
+### 3.3 Coloreando cada día de un color
 ### 3.4 Leyendas y títulos
 ##################
 
@@ -88,23 +88,13 @@ subset<-dataset[dataset$Month==mes,]
 plot(subset$date,subset$Power.kW.)
 
 
-# 3.2 Plotear 1 día
+# 3.2 Plotear 1 semana
 # A realizar por los alumnos
-dia<-15
-subset<-dataset[dataset$Day_Year==dia,]
-plot(subset$date,subset$Power.kW.)
-
-# 3.3 Plotear todos los días de una semana
-# A realizar por los alumnos
-
 semana<-15
 subset<-dataset[dataset$Week_Year==semana,]
 plot(subset$date,subset$Power.kW.)
 
-# Carga vs hora del día
-plot(subset$Hour_Day, subset$Power.kW.)
-
-# Coloreando cada día de un color
+# 3.3 Coloreando cada día de un color
 colores<-rainbow(7)
 for (i in 1:7)
 {
@@ -214,9 +204,9 @@ par(mfrow = c(1, 1))
 ### 5.1 Gráfico XY. Carga vs Temperatura
 ### 5.2 Gráfico XY. Carga vs Temperatura. Color por mes
 ##################
-#(A realizar por los alumnos)
 
 # 5.1 Gráfico XY. Carga vs Temperatura
+#(A realizar por los alumnos)
 # Y: carga, escala 0-75
 # X: temperatura, escala -20-40
 
