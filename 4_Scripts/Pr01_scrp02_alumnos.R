@@ -94,6 +94,8 @@ rm(vec) # Eliminamos la variable para evitar problemas
 
 ##################
 ### 3. Sumario de cargas de un mes
+### 3.1 Sacar un subconjunto de datos con el mes elegido
+### 3.2 Calcular los valores mínimo, promedio y máximo
 ##################
 # EJERCICIO A REALIZAR POR LOS ALUMNOS
 #
@@ -112,6 +114,9 @@ Power.kW.MAX  <-
 
 ##################
 ### 4. Sumario de cargas mensual
+### 4.1 Crear e inicializar a 0 los valores de salida
+### 4.2 Recorrer (de forma automática) todos los meses del año y guardar los valores en 3 vectores separados
+### 4.3 Plotear los valores
 ##################
 # EJERCICIO A REALIZAR POR LOS ALUMNOS
 #
@@ -125,7 +130,7 @@ vect_MIN  <-
 vect_MEAN <-
 vect_MAX  <-
   
-# 4.2 Recorrer (de forma auomática) todos los meses del año y guardar los valores en 3 vectores separados
+# 4.2 Recorrer (de forma automática) todos los meses del año y guardar los valores en 3 vectores separados
 for (i in      :    )
 {
   salida<-sumario_carga_mes(dataset,      )

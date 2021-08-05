@@ -89,19 +89,19 @@ plot(subset$date,subset$Power.kW.)
 
 # 3.2 Plotear 1 semana
 # A realizar por los alumnos
-semana<-15
-subset<-dataset[dataset$Week_Year==semana,]
-plot(subset$date,subset$Power.kW.)
+semana<-
+subset<-
+plot(            )
 
 # 3.3 Coloreando cada día de un color
-colores<-rainbow(7)
-for (i in 1:7)
+colores<-rainbow(              )
+for (i in         :            )
 {
   # seleccionar cada día concreto
-  subset2<-subset[subset$Week_Day==i,]
+  subset2<-subset[subset$                  ==i,]
   # apadir las líneas y puntos correspondientes
-  lines(subset2$Hour_Day, subset2$Power.kW., col=colores[i])
-  points(subset2$Hour_Day, subset2$Power.kW., col=colores[i])
+  lines(                                    , col=colores[i])
+  points(                                   , col=colores[i])
 }
 
 # 3.4 Leyendas y títulos
@@ -164,37 +164,31 @@ par(mfrow = c(1, 1))
 # fijar excalas: Carga: 0:75kW; Temperatura: -20-40ºC
 
 # Dividir en 2x3 gráficos
-par(mfrow = c(2, 3))
+par(mfrow = c(            ,            ))
 
 # Plotear 1 mes, carga térmica
-mes<-1
-subset<-dataset[dataset$Month==mes,]
-plot(subset$date,subset$Power.kW.,type="l",ylim=c(0,75))
+
+
 
 # Plotear 1 semana, carga térmica
-semana<-1
-subset<-dataset[dataset$Week_Year==semana,]
-plot(subset$date,subset$Power.kW.,type="l",ylim=c(0,75))
+
+
 
 # Plotear 1 día, carga térmica
-dia<-3
-subset<-dataset[dataset$Day_Year==dia,]
-plot(subset$date,subset$Power.kW.,type="l",ylim=c(0,75))
+
+
 
 # Plotear 1 mes, temperatura
-mes<-1
-subset<-dataset[dataset$Month==mes,]
-plot(subset$date,subset$Temperature,type="l",ylim=c(-20,40))
+
+
 
 # Plotear 1 semana, temperatura
-semana<-1
-subset<-dataset[dataset$Week_Year==semana,]
-plot(subset$date,subset$Temperature,type="l",ylim=c(-20,40))
+
+
 
 # Plotear 1 día, temperatura
-dia<-3
-subset<-dataset[dataset$Day_Year==dia,]
-plot(subset$date,subset$Temperature,type="l",ylim=c(-20,40))
+
+
 
 par(mfrow = c(1, 1))
 
@@ -248,7 +242,7 @@ boxplot(dataset[dataset$Month== 1,]$Power.kW.,
 ##################
 ### 7. Gráfico a archivo
 ##################
-# (Manualmente, mediante el botób "export" del cuadro de plot)
+# (Manualmente, mediante el botón "export" del cuadro de plot)
 jpeg('archivoimagen.jpg')
 boxplot(dataset$Power.kW.)
 dev.off()

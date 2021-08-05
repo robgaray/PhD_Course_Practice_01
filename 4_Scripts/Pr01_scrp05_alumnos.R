@@ -261,11 +261,9 @@ write.csv(dataset.aggr, file="dataset.aggr.csv")
 
 # 6.2 Inspección del archivo con editor de texto
 # A realizar por los alumnos
-
 # Dónde se ha guardado??
 
 # Formato, separadores y decimales
-
 # Formato, marcas de fila
 
 # 6.3 Correcciones
