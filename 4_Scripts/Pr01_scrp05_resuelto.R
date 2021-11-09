@@ -119,13 +119,18 @@ library(lubridate)
 # Importar el archivo Data_Pr01_FORMAT2.csv
 # Verificar el formato del archivo (puede tener alguna sorpresa)
 # El dataframe de salida debería llamarse "df_formato2"
-df_formato2 <- read.csv("C:/GIT/PhD_Course/PhD_Course_Practice_01_R/2_Data/Data_Pr01_FORMAT2.csv")
+file<-"/2_Data/Data_Pr01_FORMAT2.csv"
+ruta<-paste(wd,file, sep="")
+df_formato2 <- read.csv(ruta)
 
 # Importar el archivo Data_Pr01_FORMAT3.csv
 # Verificar el formato del archivo (puede tener alguna sorpresa)
 # El dataframe de salida debería llamarse "df_formato3"
 # NOTA los decimales se establecen con: dec="XXX"
-df_formato3 <- read.csv("C:/GIT/PhD_Course/PhD_Course_Practice_01_R/2_Data/Data_Pr01_FORMAT3.csv", sep=" ",dec = ",")
+file<-"/2_Data/Data_Pr01_FORMAT3.csv"
+ruta<-paste(wd,file, sep="")
+df_formato3 <- read.csv(ruta, sep=" ",dec = ",")
+
 
 # 2.4 Inspección de dataframe
 # (df_formato3)
@@ -294,3 +299,4 @@ write_rds(dataset.aggr, file="dataset.aggr.RDS")
 dataset.aggr_IMPORT <- readRDS("C:/GIT/PhD_Course/PhD_Course_Practice_01_R/dataset.aggr.RDS")
 
 # A responder por los alumnos. ¿Ventajas e inconvenientes RDS vs CSV?
+

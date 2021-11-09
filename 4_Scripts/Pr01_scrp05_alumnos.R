@@ -121,12 +121,16 @@ library(lubridate)
 # Importar el archivo Data_Pr01_FORMAT2.csv
 # Verificar el formato del archivo (puede tener alguna sorpresa)
 # El dataframe de salida debería llamarse "df_formato2"
+file<-"/2_Data/Data_Pr01_FORMAT2.csv"
+ruta<-paste(wd,file, sep="")							 			
 df_formato2 <- 
 
 # Importar el archivo Data_Pr01_FORMAT3.csv
 # Verificar el formato del archivo (puede tener alguna sorpresa)
 # El dataframe de salida debería llamarse "df_formato3"
 # NOTA los decimales se establecen con: dec="XXX"
+file<-"/2_Data/Data_Pr01_FORMAT3.csv"
+ruta<-paste(wd,file, sep="")
 df_formato3 <- 
 
 # 2.4 Inspección de dataframe
